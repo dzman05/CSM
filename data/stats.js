@@ -82,13 +82,13 @@ const NATIONAL_STATS = [
             "الثالثة ثانوي": 1,
             "جامعي": 1
         },
-        "requests_total": 3,
-        "requests_male": 1,
-        "requests_female": 1,
+        "requests_total": 1,
+        "requests_male": 0,
+        "requests_female": 0,
         "requested_distinct_courses": 0,
         "teachers_count": 2,
         "agreements_count": 1,
         "most_active_course": "حرفي مكرر لزيت الزيتون - عصر و تكرير تقليدي للزيتون",
-        "last_updated": "2026-01-13 10:43:04"
+        "last_updated": "2026-01-13 14:35:12"
     }
 ];
