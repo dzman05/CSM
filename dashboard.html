@@ -1611,6 +1611,30 @@
 
         }
 
+
+        .hamburger-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+            margin-left: 15px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
         /* === RESPONSIVE DESIGN FOR MOBILE === */
         @media (max-width: 768px) {
             .app-container {
@@ -1846,9 +1870,10 @@
 
 
 
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="app-container" id="dashboard-app" style="display: flex !important;">
 
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
 
             <div class="sidebar-header">
 
@@ -1859,17 +1884,23 @@
 
             <nav class="nav-items">
 
-                <div class="nav-link" onclick="switchView('overview', this)"><i class="fas fa-gauge-high"></i> نظرة عامة
+                <div class="nav-link" onclick="switchView('overview', this); closeSidebarOnMobile()"><i
+                        class="fas fa-gauge-high"></i> نظرة عامة
                 </div>
-                <div class="nav-link" onclick="switchView('directory', this)"><i class="fas fa-city"></i> دليل الولايات
+                <div class="nav-link" onclick="switchView('directory', this); closeSidebarOnMobile()"><i
+                        class="fas fa-city"></i> دليل الولايات
                     (58)</div>
-                <div class="nav-link" onclick="switchView('analytics', this)"><i class="fas fa-chart-pie"></i> التحليل
+                <div class="nav-link" onclick="switchView('analytics', this); closeSidebarOnMobile()"><i
+                        class="fas fa-chart-pie"></i> التحليل
                     الوطني</div>
-                <div class="nav-link" onclick="switchView('reports', this)"><i class="fas fa-file-pdf"></i> التقارير
+                <div class="nav-link" onclick="switchView('reports', this); closeSidebarOnMobile()"><i
+                        class="fas fa-file-pdf"></i> التقارير
                     الرسمية</div>
-                <div class="nav-link" onclick="switchView('security', this)"><i class="fas fa-shield-halved"></i> الأمان
+                <div class="nav-link" onclick="switchView('security', this); closeSidebarOnMobile()"><i
+                        class="fas fa-shield-halved"></i> الأمان
                     والسجلات</div>
-                <div class="nav-link" onclick="switchView('settings', this)"><i class="fas fa-cog"></i> الإعدادات</div>
+                <div class="nav-link" onclick="switchView('settings', this); closeSidebarOnMobile()"><i
+                        class="fas fa-cog"></i> الإعدادات</div>
 
             </nav>
 
@@ -1888,6 +1919,9 @@
             <header class="top-bar">
 
                 <div class="top-right-title">
+                    <div class="hamburger-menu" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </div>
 
                     <h2 style="font-weight: 800; color: var(--primary);"><i class="fas fa-tower-observation"
                             style="margin-left: 10px;"></i> مركز الاحصائيات الوطني لمدارس التكوين وتحسين المستوى</h2>
@@ -2575,32 +2609,98 @@
 
                                 }
 
+
+                                .hamburger-menu {
+                                    display: none;
+                                    font-size: 1.5rem;
+                                    cursor: pointer;
+                                    color: var(--primary);
+                                    margin-left: 15px;
+                                }
+
+                                .sidebar-overlay {
+                                    display: none;
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: rgba(0, 0, 0, 0.5);
+                                    z-index: 10000;
+                                }
+
+                                .sidebar-overlay.active {
+                                    display: block;
+                                }
+
                                 /* === RESPONSIVE DESIGN FOR MOBILE === */
                                 @media (max-width: 768px) {
+                                    .sidebar {
+                                        position: fixed;
+                                        right: -280px;
+                                        top: 0;
+                                        bottom: 0;
+                                        z-index: 10001;
+                                        width: 280px !important;
+                                        transition: 0.3s;
+                                        display: flex !important;
+                                    }
+
+                                    .sidebar.active {
+                                        right: 0;
+                                    }
+
+                                    .sidebar-overlay {
+                                        display: none;
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background: rgba(0, 0, 0, 0.5);
+                                        z-index: 10000;
+                                    }
+
+                                    .sidebar-overlay.active {
+                                        display: block;
+                                    }
+
+                                    .hamburger-menu {
+                                        display: block !important;
+                                    }
+
+                                    /* Mobile Nav Links Fix */
+                                    .nav-items {
+                                        display: flex;
+                                        flex-direction: column;
+                                        padding: 0 10px;
+                                    }
+
+                                    .nav-link {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: flex-start;
+                                        width: 100%;
+                                        padding: 12px 15px;
+                                        margin-bottom: 8px;
+                                        font-size: 0.95rem;
+                                        white-space: nowrap;
+                                        border-radius: 12px;
+                                    }
+
+                                    .nav-link i {
+                                        margin-left: 15px;
+                                        width: 25px;
+                                        text-align: center;
+                                        font-size: 1.1rem;
+                                    }
+
                                     .app-container {
                                         flex-direction: column;
                                     }
 
-                                    .sidebar {
-                                        width: 100%;
-                                        height: auto;
-                                        padding: 15px 0;
-                                    }
-
                                     .sidebar-header img {
                                         width: 120px;
-                                    }
-
-                                    .nav-items {
-                                        display: flex;
-                                        overflow-x: auto;
-                                        gap: 10px;
-                                        padding: 10px;
-                                    }
-
-                                    .nav-link {
-                                        white-space: nowrap;
-                                        flex-shrink: 0;
                                     }
 
                                     .top-bar {
@@ -2610,27 +2710,13 @@
                                     }
 
                                     .top-right-title h2 {
-                                        font-size: 0.9rem !important;
+                                        font-size: 0.85rem !important;
                                     }
 
                                     .top-left-actions {
                                         width: 100%;
                                         margin-top: 10px;
                                         justify-content: space-around;
-                                    }
-
-                                    .ticker-bar {
-                                        font-size: 0.7rem;
-                                        padding: 8px 0;
-                                    }
-
-                                    .ticker-label {
-                                        font-size: 0.7rem;
-                                        padding: 0 10px;
-                                    }
-
-                                    .main-content {
-                                        padding: 15px;
                                     }
 
                                     .metrics-grid {
@@ -2643,38 +2729,8 @@
                                         gap: 15px;
                                     }
 
-                                    .wilayas-grid {
-                                        grid-template-columns: 1fr !important;
-                                    }
-
                                     .table-container {
                                         overflow-x: auto;
-                                        -webkit-overflow-scrolling: touch;
-                                    }
-
-                                    .modern-table {
-                                        min-width: 700px;
-                                        font-size: 0.8rem;
-                                    }
-
-                                    .modern-table th,
-                                    .modern-table td {
-                                        padding: 10px 8px;
-                                        font-size: 0.75rem;
-                                    }
-
-                                    .glass-box {
-                                        padding: 15px;
-                                    }
-
-                                    .box-header {
-                                        flex-direction: column;
-                                        align-items: flex-start !important;
-                                        gap: 10px;
-                                    }
-
-                                    .box-header h3 {
-                                        font-size: 0.95rem;
                                     }
 
                                     .chart-container {
@@ -2682,40 +2738,7 @@
                                     }
 
                                     #algeria-map {
-                                        height: 350px !important;
-                                    }
-
-                                    .login-glass {
-                                        width: 90%;
-                                        padding: 25px;
-                                    }
-
-                                    .modal-card {
-                                        width: 95%;
-                                        margin: 0 10px;
-                                    }
-
-                                    .modal-body-pro {
-                                        padding: 20px;
-                                    }
-
-                                    .metric-card {
-                                        padding: 18px;
-                                        flex-direction: row;
-                                    }
-
-                                    .m-icon {
-                                        width: 50px;
-                                        height: 50px;
-                                        font-size: 1.4rem;
-                                    }
-
-                                    .m-data .value {
-                                        font-size: 1.4rem;
-                                    }
-
-                                    .m-data h4 {
-                                        font-size: 0.8rem;
+                                        height: 300px !important;
                                     }
 
                                     .search-box-container {
@@ -2724,40 +2747,10 @@
                                         margin: 10px 0;
                                     }
 
-                                    .notifications-dropdown {
-                                        width: 95%;
-                                        left: 2.5%;
-                                    }
-
                                     .user-profile {
                                         flex-direction: column;
-                                        align-items: center;
-                                        gap: 10px;
                                         padding: 10px;
                                         border: none !important;
-                                    }
-
-                                    .user-info {
-                                        text-align: center;
-                                    }
-
-                                    footer {
-                                        padding: 20px 15px;
-                                        font-size: 0.8rem;
-                                    }
-
-                                    .login-btn {
-                                        padding: 12px;
-                                        font-size: 0.9rem;
-                                    }
-
-                                    .wilaya-card {
-                                        padding: 15px;
-                                    }
-
-                                    .sidebar-footer {
-                                        font-size: 0.7rem;
-                                        padding: 10px;
                                     }
                                 }
                             </style>
@@ -3062,8 +3055,24 @@
         script.src = 'data/stats.js?v=' + Date.now();
 
         script.onload = () => { initDashboard(); };
-
         document.head.appendChild(script);
+
+        // Sidebar Toggle Logic
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (sidebar) sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                if (sidebar) sidebar.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+            }
+        }
 
 
 
@@ -3216,12 +3225,12 @@
 
 
 
-        
+
         function switchView(viewId, el) {
             document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
             const target = document.getElementById(viewId + '-section');
-            if(target) target.classList.add('active');
-            
+            if (target) target.classList.add('active');
+
             document.querySelectorAll('.nav-link').forEach(li => li.classList.remove('active'));
             if (el) el.classList.add('active');
 
@@ -3229,8 +3238,25 @@
             if (viewId === 'security') renderSecurityLogs();
             if (viewId === 'settings') loadSettingsState();
         }
-    
-function initDashboard() {
+
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (sidebar) sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                if (sidebar) sidebar.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+            }
+        }
+
+        function initDashboard() {
             let totalStud = 0, totalReq = 0, totalTeach = 0, activeC = 0;
             const statsMap = {};
             if (typeof NATIONAL_STATS !== 'undefined') {
@@ -3826,7 +3852,31 @@ function initDashboard() {
                 <head><meta charset='utf-8'><title>Report</title>
 
                 <style>body{font-family:'Arial'; direction:rtl; text-align:right;} table{width:100%; border-collapse:collapse;} td,th{border:1px solid #000; padding:5px;}
-        /* === RESPONSIVE DESIGN FOR MOBILE === */
+        
+        .hamburger-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+            margin-left: 15px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    
+                                /* === RESPONSIVE DESIGN FOR MOBILE === */
         @media (max-width: 768px) {
             .app-container { flex-direction: column; }
             .sidebar { width: 100%; height: auto; padding: 15px 0; }
@@ -3859,7 +3909,7 @@ function initDashboard() {
             .m-data h4 { font-size: 0.8rem; }
             .search-box-container { position: static; width: 100%; margin: 10px 0; }
             .notifications-dropdown { width: 95%; left: 2.5%; }
-            .user-profile { flex-direction: column; align-items: center; gap: 10px; padding: 10px; border: none !important; }
+            .user-prof{ flexion: column; align-items: center; gap: 10px; padding: 10px; border: none !important; }
             .user-info { text-align: center; }
             footer { padding: 20px 15px; font-size: 0.8rem; }
             .login-btn { padding: 12px; font-size: 0.9rem; }
